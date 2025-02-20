@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'edit.dart'; // Import edit.dart
+import 'delete.dart'; // Import delete.dart
 
 class FirestoreData extends StatelessWidget {
   const FirestoreData({super.key});
@@ -32,11 +33,24 @@ class FirestoreData extends StatelessWidget {
                   Text('Year: ${student['year'] ?? 'No data'}'),
                 ],
               ),
-              trailing: IconButton(
-                icon: const Icon(Icons.edit),
-                onPressed: () {
-                  showEditStudentDialog(context, docId!, student);
-                },
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Edit button
+                  IconButton(
+                    icon: const Icon(Icons.edit),
+                    onPressed: () {
+                      showEditStudentDialog(context, docId!, student);
+                    },
+                  ),
+                  // Delete button
+                  IconButton(
+                    icon: const Icon(Icons.delete, color: Colors.red),
+                    onPressed: () {
+                      deleteStudent(context, docId!);
+                    },
+                  ),
+                ],
               ),
             );
           },
